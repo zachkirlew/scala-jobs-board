@@ -14,6 +14,7 @@ import pureconfig.ConfigSource
 import pureconfig.ConfigSource.*
 import pureconfig.error.ConfigReaderException
 import com.zachkirlew.jobsboard.config.syntax.*
+import com.zachkirlew.jobsboard.http.HttpApi
 
 object Application extends IOApp.Simple {
 
@@ -22,7 +23,7 @@ object Application extends IOApp.Simple {
       .default[IO]
       .withHost(config.host)
       .withPort(config.port)
-      .withHttpApp(HealthRoutes[IO].routes.orNotFound)
+      .withHttpApp(HttpApi[IO].routes.orNotFound)
       .build
       .use(_ => IO.println("Server ready!") *> IO.never)
   }
